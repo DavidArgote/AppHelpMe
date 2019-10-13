@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (!editUser.getText().equals("") || editPass.getText().equals("")) {
                     if (searchUser()) {
                         Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
-                        intent.putExtra("userName", list.get(0).getId());
+                        intent.putExtra("userId", list.get(0).getId());
                         startActivity(intent);
                         finish();
                     } else {
@@ -95,9 +95,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String[] user = {editUser.getText().toString()};
         list = new ArrayList<>(managerHelper.searchUserForUserName(user));
 
-        if (editUser.getText().toString().equals(list.get(0).getUserName()) &&
-                editPass.getText().toString().equals(list.get(0).getPassword())) {
-            return true;
+        try {
+            if (editUser.getText().toString().equals(list.get(0).getUserName()) &&
+                    editPass.getText().toString().equals(list.get(0).getPassword())) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            editUser.setText("");
+            editUser.setError("Usuario no existe");
+            editPass.setText("");
         }
 
         return false;

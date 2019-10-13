@@ -141,6 +141,14 @@ public class ManagerHelper {
 
                 Publication publication = new Publication();
 
+                publication.setId(cursor.getInt(0));
+                publication.setIdUser(cursor.getInt(1));
+                publication.setUrlPhoto(cursor.getString(2));
+                publication.setDirection(cursor.getString(3));
+                publication.setDesc(cursor.getString(4));
+                publication.setDate(cursor.getString(5));
+                publication.setCity(cursor.getString(6));
+
                 list.add(publication);
 
             } while (cursor.moveToNext());

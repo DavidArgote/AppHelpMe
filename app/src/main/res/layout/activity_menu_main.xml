@@ -28,8 +28,8 @@
 
     <ImageView
         android:id="@+id/ivCloseMain"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,12 +57,34 @@
         app:srcCompat="@drawable/btn_plus" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvMensaggeRc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_no_hay_public"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnGoAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ivPlusMenu"
+        app:layout_constraintEnd_toEndOf="@+id/ivPlusMenu"
+        app:layout_constraintStart_toStartOf="@+id/ivPlusMenu"
+        app:srcCompat="@drawable/btn_plus_mini" />
+
+    <ImageView
+        android:id="@+id/btnGoMiList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoAdd"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoAdd"
+        app:layout_constraintStart_toStartOf="@+id/btnGoAdd"
+        app:srcCompat="@drawable/btn_mis_publicaciones" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
