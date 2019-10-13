@@ -1,9 +1,24 @@
 <resources>
-    <string name="app_name">AppHelpMe</string>
+    <string name="app_name">Help Me</string>
     <string name="title_user">Usuario</string>
     <string name="title_pass">Contraseña</string>
     <string name="tittle_register">¿No te haz registrado?</string>
     <string name="tittle_name">Nombre</string>
     <string name="title_cellphone">Teléfono</string>
     <string name="title_pass_confirm">Confirmar contraseña</string>
+    <string name="title_reportado_por">Reportado por:</string>
+    <string name="title_direccion">Dirección:</string>
+    <string name="title_no_hay_public">No hay publicaciones</string>
+
+    <array name="Citys">
+        <item>Ciudad</item>
+        <item>Popayán</item>
+        <item>Cali</item>
+        <item>Bogota</item>
+        <item>Pasto</item>
+        <item>Medellin</item>
+        <item>Cartagena</item>
+        <item>Villavicencio</item>
+    </array>
+
 </resources>

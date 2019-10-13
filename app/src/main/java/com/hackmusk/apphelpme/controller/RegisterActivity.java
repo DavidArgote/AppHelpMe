@@ -6,12 +6,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.hackmusk.apphelpme.R;
 import com.hackmusk.apphelpme.model.ManagerHelper;
@@ -39,12 +41,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initVews() {
 
-        // Edits
-
         editName = findViewById(R.id.editNameRegister);
         editCell = findViewById(R.id.editCellphoneRegister);
         editUser = findViewById(R.id.editUserRegister);
-        editPass = findViewById(R.id.editPassword);
+        editPass = findViewById(R.id.editPassRegister);
         editConfirmPass = findViewById(R.id.editConfirmPassRegister);
 
         spCitys = findViewById(R.id.spCitys);
@@ -78,36 +78,45 @@ public class RegisterActivity extends AppCompatActivity {
         user.setUserName(editUser.getText().toString());
         user.setPassword(editPass.getText().toString());
 
-        if (user.getPassword() == editConfirmPass.getText().toString()) {
+        if (user.getPassword().equals(editConfirmPass.getText().toString())) {
 
             if (user.getNombre().equals("") && user.getId_ciudad() != 0 && user.getUserName().equals("")) {
 
+                Toast.makeText(RegisterActivity.this, "Tienes algun campo vacio", Toast.LENGTH_SHORT).show();
+
+            } else {
+
                 long insert = managerHelper.insertUser(user);
 
-                if (insert > 0){
+                if (insert > 0) {
                     ejectDialogCorrect();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Error en la base de datos", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
+        } else {
+            editConfirmPass.setError("Escribe la confirmación de la contraseña");
         }
-
 
     }
 
     private void ejectDialogCorrect() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+        builder.setIcon(R.drawable.logo_solo_mini);
         builder.setTitle("Exito!");
         builder.setMessage("Tus datos se han almacenado correctamente.");
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
+        builder.show();
 
     }
 
