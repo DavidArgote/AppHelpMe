@@ -9,6 +9,10 @@
     <string name="title_reportado_por">Reportado por:</string>
     <string name="title_direccion">Dirección:</string>
     <string name="title_no_hay_public">No hay publicaciones</string>
+    <string name="title_dirreccion">Dirección</string>
+    <string name="title_desc">Descripción</string>
+    <string name="title_perfil">Mi perfil</string>
+    <string name="tittle_email">Correo electronico</string>
 
     <array name="Citys">
         <item>Ciudad</item>

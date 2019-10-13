@@ -142,12 +142,12 @@ public class ManagerHelper {
                 Publication publication = new Publication();
 
                 publication.setId(cursor.getInt(0));
-                publication.setIdUser(cursor.getInt(1));
+                publication.setIdUser(cursor.getString(1));
                 publication.setUrlPhoto(cursor.getString(2));
                 publication.setDirection(cursor.getString(3));
                 publication.setDesc(cursor.getString(4));
                 publication.setDate(cursor.getString(5));
-                publication.setCity(cursor.getString(6));
+                publication.setCity(Integer.parseInt(cursor.getString(6)));
 
                 list.add(publication);
 
@@ -161,5 +161,59 @@ public class ManagerHelper {
 
     }
 
+    public long insertPublic(Publication publication){
+
+        openDbWrite();
+
+        values = new ContentValues();
+
+        values.put(Constantes.PUBLIC_COLUMN_2, publication.getIdUser());
+        values.put(Constantes.PUBLIC_COLUMN_3, publication.getUrlPhoto());
+        values.put(Constantes.PUBLIC_COLUMN_4, publication.getDirection());
+        values.put(Constantes.PUBLIC_COLUMN_5, publication.getDesc());
+        values.put(Constantes.PUBLIC_COLUMN_6, publication.getDate());
+        values.put(Constantes.PUBLIC_COLUMN_7, publication.getCity());
+
+        insert = db.insert(Constantes.NAME_TABLE_PUBLIC, null, values);
+
+        closeDb();
+
+        return insert;
+
+    }
+
+    public List<Publication> searchPublication() {
+
+        openDbRead();
+
+        ArrayList<Publication> list = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Constantes.NAME_TABLE_PUBLIC, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                Publication publication = new Publication();
+
+                publication.setId(cursor.getInt(0));
+                publication.setIdUser(cursor.getString(1));
+                publication.setUrlPhoto(cursor.getString(2));
+                publication.setDirection(cursor.getString(3));
+                publication.setDesc(cursor.getString(4));
+                publication.setDate(cursor.getString(5));
+                publication.setCity(Integer.parseInt(cursor.getString(6)));
+
+                list.add(publication);
+
+            } while (cursor.moveToNext());
+
+        }
+
+        closeDb();
+
+        return list;
+
+    }
 
 }

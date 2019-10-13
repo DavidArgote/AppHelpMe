@@ -1,7 +1,10 @@
 package com.hackmusk.apphelpme.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +65,9 @@ public class AdapterListPublic extends RecyclerView.Adapter<AdapterListPublic.Ho
             btnCall.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO LLAMAR A LA PERSONA
+                    Uri number = Uri.parse("tel:3162924315");
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                    context.startActivity(callIntent);
                 }
             });
 
@@ -70,24 +75,28 @@ public class AdapterListPublic extends RecyclerView.Adapter<AdapterListPublic.Ho
             btnMenssage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO ENVIAR MENSAJE
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto","argote.2075@gmail.com", null));
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Me intereza ayudar");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "Estoy interezado.");
+                    context.startActivity(Intent.createChooser(emailIntent, "Send email.    .."));
                 }
             });
 
         }
 
-        public void fillAllViews(Publication publication){
-
-            ManagerHelper managerHelper = new ManagerHelper(context);
-            String nameUser = managerHelper.searchUserForUserId(publication.getIdUser()).get(0).getUserName();
+        public void fillAllViews(Publication publication) {
 
             tvDate.setText(publication.getDate());
-            tvName.setText(nameUser);
+            tvName.setText(publication.getIdUser());
             tvDirection.setText(publication.getDirection());
 
-            if (publication.getUrlPhoto() != nameUser){
-                ivImage.setImageBitmap(BitmapFactory.decodeFile(publication.getUrlPhoto()));
-            }else {
+            if (publication.getUrlPhoto() != null) {
+
+                Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(publication.getUrlPhoto()), 160, 120, true);
+                ivImage.setImageBitmap(bitmap);
+
+            } else {
                 ivImage.setImageResource(R.drawable.logo_solo_mini);
             }
 

@@ -3,6 +3,9 @@
     package="com.hackmusk.apphelpme">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.MenuMainActivity"></activity>
+        <activity android:name=".controller.PerfilActivity"></activity>
+        <activity android:name=".controller.AddPublicationActivity" />
+        <activity android:name=".controller.MenuMainActivity" />
         <activity android:name=".controller.RegisterActivity" />
         <activity android:name=".controller.LoginActivity" />
         <activity android:name=".controller.SplashActivity">

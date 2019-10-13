@@ -5,6 +5,7 @@ import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -29,11 +30,11 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvMenssage;
     private ManagerHelper managerHelper;
     private ArrayList<Publication> listPublications;
-    private ArrayList<User> user;
     private SharedPreferences preferences;
 
     public static String NAME_PREFERENCES = "PREFERENCES";
     public static String MY_KEY_USER = "id";
+    public static String MY_KEY_USER_2 = "name";
 
     boolean bandera = false;
 
@@ -48,9 +49,11 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
 
         preferences = getSharedPreferences(NAME_PREFERENCES, MODE_PRIVATE);
         preferences.getInt(MY_KEY_USER, getIntent().getIntExtra("userId", 0));
+        preferences.getString(MY_KEY_USER_2, getIntent().getStringExtra("userName"));
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(MY_KEY_USER, getIntent().getIntExtra("userId", 0));
+        editor.putString(MY_KEY_USER_2, getIntent().getStringExtra("userName"));
         editor.apply();
 
         initViews();
@@ -65,6 +68,7 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
         rcList.setHasFixedSize(true);
 
         tvMenssage = findViewById(R.id.tvMensaggeRc);
+        tvMenssage.setVisibility(View.INVISIBLE);
 
         btnClose = findViewById(R.id.ivCloseMain);
         btnClose.setOnClickListener(this);
@@ -85,30 +89,23 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
 
     private void fillList() {
 
-        user = new ArrayList<>(managerHelper.searchUserForUserId(preferences.getInt("id", 0)));
 
-        if (user != null && user.size() != 0) {
+        listPublications = new ArrayList<>(managerHelper.searchPublication());
 
-            listPublications = new ArrayList<>(managerHelper.searchPublicationForCity(user.get(0).getId_ciudad()));
+        if (listPublications != null && listPublications.size() != 0) {
 
-            if (listPublications != null && listPublications.size() != 0) {
+            AdapterListPublic adapter = new AdapterListPublic(MenuMainActivity.this, listPublications);
+            rcList.setAdapter(adapter);
 
-                AdapterListPublic adapter = new AdapterListPublic(MenuMainActivity.this, listPublications);
-                rcList.setAdapter(adapter);
-
-                tvMenssage.setVisibility(View.VISIBLE);
-
-            } else {
-                rcList.setVisibility(View.INVISIBLE);
-                tvMenssage.setVisibility(View.VISIBLE);
-            }
+            tvMenssage.setVisibility(View.INVISIBLE);
 
         } else {
-            tvMenssage.setText("No se han encontrado publicaciones en tú ciudad");
+            rcList.setVisibility(View.INVISIBLE);
             tvMenssage.setVisibility(View.VISIBLE);
         }
 
-    }
+
+}
 
     @Override
     public void onClick(View v) {
@@ -120,6 +117,11 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.ivPerfil:
+
+                Intent intent1 = new Intent(MenuMainActivity.this, PerfilActivity.class);
+                intent1.getIntExtra("user", preferences.getInt(MY_KEY_USER, 0));
+                startActivity(intent1);
+
                 break;
 
             case R.id.ivPlusMenu:
@@ -128,7 +130,7 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
                     btnGoAdd.setVisibility(View.VISIBLE);
                     btnGoMyList.setVisibility(View.VISIBLE);
                     bandera = true;
-                }else {
+                } else {
                     btnGoAdd.setVisibility(View.INVISIBLE);
                     btnGoMyList.setVisibility(View.INVISIBLE);
                     bandera = false;
@@ -136,6 +138,12 @@ public class MenuMainActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.btnGoAdd:
+
+                Intent intent = new Intent(MenuMainActivity.this, AddPublicationActivity.class);
+                intent.getIntExtra("user", preferences.getInt(MY_KEY_USER, 0));
+                intent.putExtra("userName", preferences.getString(MY_KEY_USER_2, ""));
+                startActivity(intent);
+
                 break;
 
             case R.id.btnGoMiList:

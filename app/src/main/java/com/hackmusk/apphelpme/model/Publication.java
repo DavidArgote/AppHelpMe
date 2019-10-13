@@ -3,17 +3,17 @@ package com.hackmusk.apphelpme.model;
 public class Publication {
 
     private int id;
-    private int idUser;
+    private String idUser;
     private String urlPhoto;
     private String direction;
     private String desc;
     private String date;
-    private String city;
+    private int city;
 
     public Publication() {
     }
 
-    public Publication(int id, int idUser, String urlPhoto, String direction, String desc, String date, String city) {
+    public Publication(int id, String idUser, String urlPhoto, String direction, String desc, String date, int city) {
         this.id = id;
         this.idUser = idUser;
         this.urlPhoto = urlPhoto;
@@ -31,11 +31,11 @@ public class Publication {
         this.id = id;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -71,11 +71,11 @@ public class Publication {
         this.date = date;
     }
 
-    public String getCity() {
+    public int getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(int city) {
         this.city = city;
     }
 }
