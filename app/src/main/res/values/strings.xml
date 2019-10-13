@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppHelpMe</string>
+    <string name="title_user">Usuario</string>
+    <string name="title_pass">Contraseña</string>
+    <string name="tittle_register">¿No te haz registrado?</string>
+    <string name="tittle_name">Nombre</string>
+    <string name="title_cellphone">Teléfono</string>
+    <string name="title_pass_confirm">Confirmar contraseña</string>
+</resources>
